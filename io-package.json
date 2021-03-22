@@ -1,0 +1,79 @@
+{
+	"common": {
+		"name": "rs",
+		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"zh-cn": "首次出版"
+			}
+		},
+		"title": "Reverse Search",
+		"titleLang": {
+			"en": "Reverse Search",
+			"de": "Suche umkehren",
+			"ru": "Обратный поиск",
+			"pt": "Pesquisa reversa",
+			"nl": "Achteruit zoeken",
+			"fr": "Recherche inversée",
+			"it": "Ricerca inversa",
+			"es": "Búsqueda inversa",
+			"pl": "Wyszukiwanie wsteczne",
+			"zh-cn": "反向搜寻"
+		},
+		"desc": {
+			"en": "Rückwärtssuche von Telefonnummern",
+			"de": "Rückwärtssuche von Nummernzahlen",
+			"ru": "Rückwärtssuche von Telefonnummern",
+			"pt": "Rückwärtssuche von Telefonnummern",
+			"nl": "Rückwärtssuche van Telefonnummern",
+			"fr": "Rückwärtssuche von Telefonnummern",
+			"it": "Rückwärtssuche von Telefonnummern",
+			"es": "Rückwärtssuche von Telefonnummern",
+			"pl": "Rückwärtssuche von Telefonnummern",
+			"zh-cn": "Rückwärtssuchevon Telefonnummern"
+		},
+		"authors": [
+			"kaen-guruh <kaen-guruh@web.de>"
+		],
+		"keywords": [
+			"ioBroker",
+			"template",
+			"Smart Home",
+			"home automation"
+		],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"main": "main.js",
+		"icon": "rs.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/kaen-guruh/ioBroker.rs/master/admin/rs.png",
+		"readme": "https://github.com/kaen-guruh/ioBroker.rs/blob/master/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "misc-data",
+		"compact": true,
+		"connectionType": "cloud",
+		"dataSource": "push",
+		"materialize": true,
+		"dependencies": [
+			{
+				"js-controller": ">=2.0.0"
+			}
+		]
+	},
+	"native": {
+		"option1": true,
+		"option2": "42"
+	},
+	"objects": [],
+	"instanceObjects": []
+}

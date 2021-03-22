@@ -1,0 +1,34 @@
+{
+	"cli": true,
+	"adapterName": "rs",
+	"title": "Reverse Search",
+	"description": "Rückwärtssuche von Telefonnummern",
+	"expert": "no",
+	"features": [
+		"adapter"
+	],
+	"adminFeatures": [],
+	"type": "misc-data",
+	"startMode": "daemon",
+	"connectionType": "cloud",
+	"dataSource": "push",
+	"connectionIndicator": "no",
+	"language": "JavaScript",
+	"adminReact": "no",
+	"tools": [
+		"ESLint",
+		"type checking"
+	],
+	"indentation": "Tab",
+	"quotes": "single",
+	"es6class": "yes",
+	"authorName": "kaen-guruh",
+	"authorGithub": "kaen-guruh",
+	"authorEmail": "kaen-guruh@web.de",
+	"gitRemoteProtocol": "HTTPS",
+	"gitCommit": "no",
+	"license": "MIT License",
+	"ci": "gh-actions",
+	"dependabot": "no",
+	"creatorVersion": "1.32.0"
+}
