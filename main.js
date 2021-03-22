@@ -151,7 +151,7 @@ class Rs extends utils.Adapter {
         			})
         			.catch(function (error) {
             				// handle error
-            				log.error(error);
+            				//log.error(error);
         			})
 				
 			
