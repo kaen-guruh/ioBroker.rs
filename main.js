@@ -151,7 +151,7 @@ class Rs extends utils.Adapter {
 		if (state) {
 			// The state was changed
 			if (state.val != '') {
-				await this.setStateAsync('phoneName', { val: 'neu ', ack: true });
+				this.setStateAsync('phoneName', { val: 'neu ', ack: true });
 			}
 			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
 		} else {
