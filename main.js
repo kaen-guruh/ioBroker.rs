@@ -139,19 +139,19 @@ class Rs extends utils.Adapter {
 			axios.get('http://www.dasoertliche.de/Controller?form_name=search_inv&ph=' + state.val)
         			.then(function (response) {
             				// handle success
-					this.log.info(`sende anfrage an das Örtliche`);
+					//log.info(`sende anfrage an das Örtliche`);
           				var matches = response.data.match(/class="st-treff-name"\>(.*?)\</); // in matches[1] steht der Namen aus Das Örtliche
             				if (!matches){     // Das Örtliche kein Name gefunden
-						this.log.info(`nichts gefunden`);
+					//	this.log.info(`nichts gefunden`);
             					this.setState('phoneName', { val: 'Unbekannt', ack: true });
             				} else { 
-						this.log.info(`gefunden`);
+					//	this.log.info(`gefunden`);
                 				this.setState('phoneName', { val: matches[1], ack: true });
             				} 
         			})
         			.catch(function (error) {
             				// handle error
-            				this.log.info(`Fehler`);
+            				//this.log.info(`Fehler`);
         			})
 				
 			
