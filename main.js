@@ -66,6 +66,17 @@ class Rs extends utils.Adapter {
 			},
 			native: {},
 		});
+		await this.setObjectNotExistsAsync('phoneName', {
+			type: 'state',
+			common: {
+				name: 'phoneName',
+				type: 'string',
+				role: 'value',
+				read: true,
+				write: true,
+			},
+			native: {},
+		});
 
 		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
 		this.subscribeStates('phoneNumber');
@@ -84,7 +95,7 @@ class Rs extends utils.Adapter {
 		// same thing, but the value is flagged "ack"
 		// ack should be always set to true if the value is received from or acknowledged from the target system
 		await this.setStateAsync('phoneNumber', { val: '', ack: true });
-
+		await this.setStateAsync('phoneName', { val: '', ack: true });
 		// same thing, but the state is deleted after 30s (getState will return null afterwards)
 		//await this.setStateAsync('testVariable', { val: true, ack: true, expire: 30 });
 
@@ -139,6 +150,9 @@ class Rs extends utils.Adapter {
 	onStateChange(id, state) {
 		if (state) {
 			// The state was changed
+			if (state.val != '') {
+				await this.setStateAsync('phoneName', { val: 'neu ' + this.getStateAsync('phoneNumber')});
+			}
 			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
 		} else {
 			// The state was deleted
