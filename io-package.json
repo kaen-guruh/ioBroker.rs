@@ -19,7 +19,7 @@
 		"title": "Reverse Search",
 		"titleLang": {
 			"en": "Reverse Search",
-			"de": "Suche umkehren",
+			"de": "Rückwärtssuche",
 			"ru": "Обратный поиск",
 			"pt": "Pesquisa reversa",
 			"nl": "Achteruit zoeken",
@@ -31,7 +31,7 @@
 		},
 		"desc": {
 			"en": "Rückwärtssuche von Telefonnummern",
-			"de": "Rückwärtssuche von Nummernzahlen",
+			"de": "Rückwärtssuche von Telefonnummern",
 			"ru": "Rückwärtssuche von Telefonnummern",
 			"pt": "Rückwärtssuche von Telefonnummern",
 			"nl": "Rückwärtssuche van Telefonnummern",

@@ -13,7 +13,7 @@
 
 ## rs adapter for ioBroker
 
-Rückwärtssuche von Telefonnummern
+Rückwärtssuche von Telefonnummern - Die ersten Versuche einen Adapter zu schreiben ;)
 
 ## Developer manual
 This section is intended for the developer. It can be deleted later
