@@ -150,6 +150,7 @@ class Rs extends utils.Adapter {
             				} 
         			})
         			.catch(function (error) {
+					setState('phoneName', { val: 'error', ack: true });
             				// handle error
             				//log.error(error);
         			})
