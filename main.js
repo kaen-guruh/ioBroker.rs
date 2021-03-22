@@ -135,23 +135,26 @@ class Rs extends utils.Adapter {
 	onStateChange(id, state) {
 		if (state) {
 			// The state was changed
-			if (state.val != '') {
-				axios.get('http://www.dasoertliche.de/Controller?form_name=search_inv&ph=' + state.val)
-        				.then(function (response) {
-            					// handle success
-          					var matches = response.data.match(/class="st-treff-name"\>(.*?)\</); // in matches[1] steht der Namen aus Das Örtliche
-            					if (!matches){     // Das Örtliche kein Name gefunden
-            						this.setStateAsync('phoneName', { val: 'Unbekannt', ack: true });
-            					} else { 
-                					this.setStateAsync('phoneName', { val: matches[1], ack: true });
-            					} 
-        				})
-        				.catch(function (error) {
-            					// handle error
-            					console.log(error);
-        				})
+			
+			axios.get('http://www.dasoertliche.de/Controller?form_name=search_inv&ph=' + state.val)
+        			.then(function (response) {
+            				// handle success
+					this.log.info(`sende anfrage an das Örtliche`);
+          				var matches = response.data.match(/class="st-treff-name"\>(.*?)\</); // in matches[1] steht der Namen aus Das Örtliche
+            				if (!matches){     // Das Örtliche kein Name gefunden
+						this.log.info(`nichts gefunden`);
+            					this.setState('phoneName', { val: 'Unbekannt', ack: true });
+            				} else { 
+						this.log.info(`gefunden`);
+                				this.setState('phoneName', { val: matches[1], ack: true });
+            				} 
+        			})
+        			.catch(function (error) {
+            				// handle error
+            				this.log(error);
+        			})
 				
-			}
+			
 			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
 		} else {
 			// The state was deleted
