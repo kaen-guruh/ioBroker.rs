@@ -55,6 +55,17 @@ class Rs extends utils.Adapter {
 			},
 			native: {},
 		});
+		await this.setObjectNotExistsAsync('testVariable', {
+			type: 'state',
+			common: {
+				name: 'phoneNumber',
+				type: 'int',
+				role: 'value',
+				read: true,
+				write: true,
+			},
+			native: {},
+		});
 
 		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
 		this.subscribeStates('testVariable');
