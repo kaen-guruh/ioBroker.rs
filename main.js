@@ -55,7 +55,7 @@ class Rs extends utils.Adapter {
 			},
 			native: {},
 		});
-		await this.setObjectNotExistsAsync('testVariable', {
+		await this.setObjectNotExistsAsync('phoneNumber', {
 			type: 'state',
 			common: {
 				name: 'phoneNumber',
