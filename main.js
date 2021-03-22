@@ -59,7 +59,7 @@ class Rs extends utils.Adapter {
 			type: 'state',
 			common: {
 				name: 'phoneNumber',
-				type: 'int',
+				type: 'string',
 				role: 'value',
 				read: true,
 				write: true,
