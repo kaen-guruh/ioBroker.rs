@@ -10,6 +10,7 @@ const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
 // const fs = require("fs");
+const axios = require('axios');
 
 class Rs extends utils.Adapter {
 
@@ -39,22 +40,6 @@ class Rs extends utils.Adapter {
 		this.log.info('config option1: ' + this.config.option1);
 		this.log.info('config option2: ' + this.config.option2);
 
-		/*
-		For every state in the system there has to be also an object of type state
-		Here a simple template for a boolean variable named "testVariable"
-		Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
-		*/
-		await this.setObjectNotExistsAsync('testVariable', {
-			type: 'state',
-			common: {
-				name: 'testVariable',
-				type: 'boolean',
-				role: 'indicator',
-				read: true,
-				write: true,
-			},
-			native: {},
-		});
 		await this.setObjectNotExistsAsync('phoneNumber', {
 			type: 'state',
 			common: {
@@ -151,7 +136,21 @@ class Rs extends utils.Adapter {
 		if (state) {
 			// The state was changed
 			if (state.val != '') {
-				this.setStateAsync('phoneName', { val: 'neu ', ack: true });
+				axios.get('http://www.dasoertliche.de/Controller?form_name=search_inv&ph=' + state.val)
+        				.then(function (response) {
+            					// handle success
+          					var matches = response.data.match(/class="st-treff-name"\>(.*?)\</); // in matches[1] steht der Namen aus Das Örtliche
+            					if (!matches){     // Das Örtliche kein Name gefunden
+            						this.setStateAsync('phoneName', { val: 'Unbekannt', ack: true });
+            					} else { 
+                					this.setStateAsync('phoneName', { val: matches[1], ack: true });
+            					} 
+        				})
+        				.catch(function (error) {
+            					// handle error
+            					console.log(error);
+        				})
+				
 			}
 			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
 		} else {
