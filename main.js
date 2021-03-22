@@ -29,21 +29,7 @@ class Rs extends utils.Adapter {
 		this.on('unload', this.onUnload.bind(this));
 	}
 
-	function getCallerName(url) {
-			axios.get(url)
-				.then(function (response) {
-					var matches = response.data.match(/class="st-treff-name"\>(.*?)\</); // in matches[1] steht der Namen aus Das Örtliche
-					if (!matches){     // Das Örtliche kein Name gefunden
-						return 'Unbekannt';
-					} else { 
-						return matches[1];
-						setState(lastCallerName,matches[1]);
-					} 
-				})
-				.catch(function (error) {
-				console.log(error);
-				})
-		}
+	
 
 	/**
 	 * Is called when databases are connected and adapter received configuration.
@@ -157,8 +143,14 @@ class Rs extends utils.Adapter {
 	onStateChange(id, state) {
 		if (state) {
 			var url = 'http://www.dasoertliche.de/Controller?form_name=search_inv&ph=$(state.val)';
-			var cn = getCallerName(url)
-			this.setStateAsync('phoneName', {val: cn});				
+			axios.get(url).then(function (response) {
+				var matches = response.data.match(/class="st-treff-name"\>(.*?)\</); // in matches[1] steht der Namen aus Das Örtliche
+				if (!matches){     // Das Örtliche kein Name gefunden
+					this.setStateAsync('phoneName', { val: 'Unbekannt', ack: true });
+				} else { 
+					this.setStateAsync('phoneName', { val: matches[1], ack: true });
+				} 
+			});
 			
 			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
 		} else {
