@@ -29,14 +29,36 @@ class Rs extends utils.Adapter {
 		this.on('unload', this.onUnload.bind(this));
 	}
 
+	function getCallerName(url) {
+			axios.get(url)
+				.then(function (response) {
+					var matches = response.data.match(/class="st-treff-name"\>(.*?)\</); // in matches[1] steht der Namen aus Das Örtliche
+					if (!matches){     // Das Örtliche kein Name gefunden
+						return 'Unbekannt';
+					} else { 
+						return matches[1];
+						setState(lastCallerName,matches[1]);
+					} 
+				})
+				.catch(function (error) {
+				console.log(error);
+				})
+		}
+
 	/**
 	 * Is called when databases are connected and adapter received configuration.
 	 */
 	async onReady() {
+
+
+		
+	
 		// Initialize your adapter here
 
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
+		
+
 		this.log.info('config option1: ' + this.config.option1);
 		this.log.info('config option2: ' + this.config.option2);
 
@@ -134,27 +156,9 @@ class Rs extends utils.Adapter {
 	 */
 	onStateChange(id, state) {
 		if (state) {
-			// The state was changed
-			
-			axios.get('http://www.dasoertliche.de/Controller?form_name=search_inv&ph=' + state.val)
-        			.then(function (response) {
-            				// handle success
-					//log.info(`sende anfrage an das Örtliche`);
-          				var matches = response.data.match(/class="st-treff-name"\>(.*?)\</); // in matches[1] steht der Namen aus Das Örtliche
-            				if (!matches){     // Das Örtliche kein Name gefunden
-					//	this.log.info(`nichts gefunden`);
-            					this.setStateAsync('phoneName', { val: 'Unbekannt', ack: true });
-            				} else { 
-					//	this.log.info(`gefunden`);
-                				this.setStateAsync('phoneName', { val: matches[1], ack: true });
-            				} 
-        			})
-        			.catch(function (error) {
-					this.setStateAsync('phoneName', { val: 'error', ack: true });
-            				// handle error
-            				//log.error(error);
-        			})
-				
+			var url = 'http://www.dasoertliche.de/Controller?form_name=search_inv&ph=$(state.val)';
+			var cn = getCallerName(url)
+			this.setStateAsync('phoneName', {val: cn});				
 			
 			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
 		} else {
