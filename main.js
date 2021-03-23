@@ -15,6 +15,9 @@ class Rs extends utils.Adapter {
 		// this.on('message', this.onMessage.bind(this));
 		this.on('unload', this.onUnload.bind(this));
 	}
+	async getNameToNumber() {
+		//
+	}
 	async onReady() {
 		this.log.info('config option1: ' + this.config.option1);
 		this.log.info('config option2: ' + this.config.option2);
@@ -42,7 +45,6 @@ class Rs extends utils.Adapter {
 		});
 		this.subscribeStates('phoneNumber');
 		await this.setStateAsync('phoneNumber', { val: '', ack: true });
-		await this.setStateAsync('phoneName', { val: '', ack: true });
 	}
 	onUnload(callback) {
 		try {
@@ -52,12 +54,34 @@ class Rs extends utils.Adapter {
 		}
 	}
 	onStateChange(id, state) {
-		if (state) {						
+		if (state) {
+			this.nrToName(state.val);
 			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
 		} else {
-			// The state was deleted
 			this.log.info(`state ${id} deleted`);
 		}
+	}
+	async nrToName(nr){
+		var url = 'http://www.dasoertliche.de/Controller?form_name=search_inv&ph=' + nr;
+		const loadName = async () => {
+			let result = null;
+			try {
+				result = await axios.get(url);				
+			} catch (error) {
+				this.log.warn(`Unable to load data : ${error}`);
+				return;
+			}
+			try {
+				const values = result.data.match(/class="st-treff-name"\>(.*?)\</)[1];
+				this.log.debug(`Data received : ${values}`);
+				await this.setStateAsync('phoneName', { val: values, ack: true });
+			} catch (error) {
+				await this.setStateAsync('phoneName', { val: 'Unbekannt', ack: true });
+				this.log.warn(`Unable to load data : ${error}`);
+				return;
+			}
+		};
+		await loadName();
 	}
 }
 
